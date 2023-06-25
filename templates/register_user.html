@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h1>ユーザー登録</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="coloer: red;">{{ messages }}</p>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('register_user') }}">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=20) }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=20) }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.pass_confirm.label }}<br>
+            {{ form.pass_confirm(size=20) }}<br>
+            {% for error in form.pass_confirm.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+        <p><input type="submit" value="登録"></p>
+    </form>
+</body>
+</html>

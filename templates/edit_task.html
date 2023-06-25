@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>タスクを編集する</title>
+</head>
+<body>
+    <h1>タスクを編集する</h1>
+    {# url_for()はpythonの関数名を指定する． #}
+    <form method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+        <label for="title">タイトル:</label>
+        <input type="text" name="title" value="{{ task.title }}" required><br>
+        <label for="status">ステータス:</label>
+        <select name="status" required>
+            <option value="未着手"{% if task.status == '未着手'%}selected{% endif %}>未着手</option>
+            <option value="未着手"{% if task.status == '進行中'%}selected{% endif %}>進行中</option>
+            <option value="未着手"{% if task.status == '完了'%}selected{% endif %}>完了</option>
+        </select><br>
+        <input type="submit" value="更新">
+    </form>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>タスク管理アプリ</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>タスク管理アプリ</h1>
+    </header>
+    <div class="task-list">
+        <div class="task-list-heading">タスク</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>タイトル</th>
+                    <th>状態</th>
+                    <th>作成日</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.title }}</td>
+                    {# タスクの状態によってクラスを変える #}
+                    <td class="{% if task.status == '未着手' %}status-unstarted{% elif task.status == '進行中' %}status-in-progress{% elif task.status == '完了' %}status-completed{% endif %}">{{ task.status }}</td>
+                    <td>{{ task.created_date }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_task', task_id=task.id )}}" class="edit-btn">編集</a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('delete_task', task_id=task.id )}}" class="delete-btn" onclick="return confirm('本当に削除してもよろしいですか？')">削除</a>
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+        <div class="add-task">
+            <a href="{{ url_for('add_task') }}">タスクを追加する</a>
+        </div>  
+    </div>
+</body>
+</html>
